@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/domain/models/pokemon_model.dart';
+import 'pokemon_model.dart';
 
 class PokeListModel {
   List<PokemonModel>? pokemon;
