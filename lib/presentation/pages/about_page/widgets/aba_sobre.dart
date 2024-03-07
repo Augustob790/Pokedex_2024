@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pokedex/presentation/widgets/custom_text.dart';
 import '../../../widgets/circular_progress_about.dart';
 import '../../../../domain/models/specie.dart';
 import '../../../stores/pokeapi_store.dart';
@@ -18,13 +19,11 @@ class AbaSobre extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Descrição',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+          children: [
+            const CustomText(
+              text: "Descrição",
+              fontSize: 16,
+              colors: Colors.black,
             ),
             const SizedBox(
               height: 10,
@@ -49,38 +48,31 @@ class AbaSobre extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Biologia',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            const CustomText(
+              text: "Biologia",
+              fontSize: 16,
+              colors: Colors.black,
             ),
             const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 200),
+              padding: const EdgeInsets.only(right: 10),
               child: Observer(builder: (context) {
                 return Column(
-                  children: <Widget>[
+                  children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        const Text(
-                          'Altura',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54,
-                          ),
+                      children: [
+                        const CustomText(
+                          text: "Altura",
+                          fontSize: 14,
+                          colors: Colors.black54,
                         ),
-                        Text(
-                          _pokeApiStore.pokemonAtual!.height!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
+                        CustomText(
+                          text: _pokeApiStore.pokemonAtual!.height!,
+                          fontSize: 14,
+                          colors: Colors.black,
                         ),
                       ],
                     ),
@@ -89,21 +81,59 @@ class AbaSobre extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        const Text(
-                          'Peso',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54,
-                          ),
+                      children: [
+                        const CustomText(
+                          text: "Peso",
+                          fontSize: 14,
+                          colors: Colors.black54,
                         ),
-                        Text(
-                          _pokeApiStore.pokemonAtual!.weight!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
+                        CustomText(
+                          text: _pokeApiStore.pokemonAtual!.weight!,
+                          fontSize: 14,
+                          colors: Colors.black,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const CustomText(
+                          text: "Tipo",
+                          fontSize: 14,
+                          colors: Colors.black54,
+                        ),
+                        CustomText(
+                          text: _pokeApiStore.pokemonAtual!.type!
+                              .map((e) => e)
+                              .join(', '),
+                          fontSize: 14,
+                          colors: Colors.black,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(
+                          text: "Habilidades",
+                          fontSize: 14,
+                          colors: Colors.black54,
+                        ),
+                      ],
+                    ),
+                    Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomText(
+                          text: _pokeApiV2Store.pokeApiV2?.abilities!.map((e) => e.ability!.name).join(', ') ?? "",
+                          fontSize: 14,
+                          colors: Colors.black,
                         ),
                       ],
                     )

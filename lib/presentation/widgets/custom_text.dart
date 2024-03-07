@@ -15,6 +15,7 @@ class CustomText extends StatelessWidget {
           fontFamily: 'Google',
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
+          overflow: TextOverflow.ellipsis,
           color: colors),
     );
   }
