@@ -19,29 +19,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  PokeApiStore? _pokemonStore;
+  late PokeApiStore _pokemonStore;
 
   @override
   void initState() {
     super.initState();
     _pokemonStore = GetIt.instance<PokeApiStore>();
-    if (_pokemonStore!.pokeAPI == null) {
-      _pokemonStore!.fetchPokemonList();
+    if (_pokemonStore.pokeAPI == null) {
+      _pokemonStore.fetchPokemonList();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double statusWidth = MediaQuery.of(context).padding.top;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         clipBehavior: Clip.antiAlias,
-        // overflow: Overflow.visible,
-        children: <Widget>[
+        children: [
           Positioned(
-            top: MediaQuery.of(context).padding.top - 240 / 2.9,
+            top: statusBarHeight - 240 / 2.9,
             left: screenWidth - (240 / 1.6),
             child: Opacity(
               opacity: 0.1,
@@ -52,75 +51,66 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: statusWidth,
-                ),
-                const AppBarHome(),
-                Expanded(
-                  child: SizedBox(
-                    child: Observer(
-                      name: 'ListaHomePage',
-                      builder: (BuildContext context) {
-                        return (_pokemonStore!.pokeAPI != null)
-                            ? AnimationLimiter(
-                                child: GridView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  padding: const EdgeInsets.all(12),
-                                  addAutomaticKeepAlives: true,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2),
-                                  itemCount:
-                                      _pokemonStore!.pokeAPI!.pokemon!.length,
-                                  itemBuilder: (context, index) {
-                                    PokemonModel pokemon =
-                                        _pokemonStore!.getPokemon(index: index);
-                                    return AnimationConfiguration.staggeredGrid(
-                                      position: index,
-                                      duration:
-                                          const Duration(milliseconds: 375),
-                                      columnCount: 2,
-                                      child: ScaleAnimation(
-                                        child: GestureDetector(
-                                          child: PokeItem(
-                                            types: pokemon.type,
-                                            index: index,
-                                            name: pokemon.name,
-                                            num: pokemon.num,
-                                          ),
-                                          onTap: () {
-                                            _pokemonStore!
-                                                .setPokemonAtual(index: index);
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        PokeDetailPage(
-                                                  index: index,
-                                                ),
-                                                fullscreenDialog: true,
-                                              ),
-                                            );
-                                          },
-                                        ),
+          Column(
+            children: [
+              SizedBox(height: statusBarHeight),
+              const AppBarHome(),
+              Expanded(
+                child: Observer(
+                  name: 'ListaHomePage',
+                  builder: (BuildContext context) {
+                    return _pokemonStore.pokeAPI != null
+                        ? AnimationLimiter(
+                            child: GridView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              padding: const EdgeInsets.all(12),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                              itemCount: _pokemonStore.pokeAPI!.pokemon!.length,
+                              itemBuilder: (context, index) {
+                                PokemonModel pokemon =
+                                    _pokemonStore.getPokemon(index: index);
+                                return AnimationConfiguration.staggeredGrid(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 375),
+                                  columnCount: 2,
+                                  child: ScaleAnimation(
+                                    child: GestureDetector(
+                                      child: PokeItem(
+                                        types: pokemon.type,
+                                        index: index,
+                                        name: pokemon.name,
+                                        num: pokemon.num,
                                       ),
-                                    );
-                                  },
-                                ),
-                              )
-                            : const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                      },
-                    ),
-                  ),
+                                      onTap: () {
+                                        _pokemonStore.setPokemonAtual(
+                                            index: index);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                PokeDetailPage(
+                                              index: index,
+                                            ),
+                                            fullscreenDialog: true,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

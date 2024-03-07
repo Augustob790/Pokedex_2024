@@ -5,10 +5,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
+import '../../../constants/api_routes.dart';
 import '../../../constants/consts_app.dart';
 import '../../../domain/models/pokemon_model.dart';
 import '../../stores/pokeapi_store.dart';
 import '../../stores/pokeapiv2_store.dart';
+import '../../widgets/custom_text.dart';
 import '../about_page/about_page.dart';
 
 class PokeDetailPage extends StatefulWidget {
@@ -32,8 +34,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
   @override
   void initState() {
     super.initState();
-    _pageController =
-        PageController(initialPage: widget.index!, viewportFraction: 0.5);
+    _pageController = PageController(initialPage: widget.index!, viewportFraction: 0.5);
     _pokemonStore = GetIt.instance<PokeApiStore>();
     _pokeApiV2Store = GetIt.instance<PokeApiV2Store>();
     _pokeApiV2Store!.getInfoPokemon(_pokemonStore!.pokemonAtual!.name);
@@ -61,7 +62,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: <Widget>[
+        children: [
           Observer(
             builder: (context) {
               return AnimatedContainer(
@@ -77,7 +78,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                 ),
                 duration: const Duration(milliseconds: 300),
                 child: Stack(
-                  children: <Widget>[
+                  children: [
                     AppBar(
                       centerTitle: true,
                       elevation: 0,
@@ -88,10 +89,10 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                           Navigator.pop(context);
                         },
                       ),
-                      actions: <Widget>[
+                      actions: [
                         Stack(
                           alignment: Alignment.center,
-                          children: <Widget>[
+                          children: [
                             AnimatedOpacity(
                               duration: const Duration(milliseconds: 200),
                               opacity: _opacityTitleAppBar! >= 0.2 ? 0.2 : 0.0,
@@ -118,17 +119,10 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                       left: 20 +
                           _progress *
                               (MediaQuery.of(context).size.height * 0.060),
-                      child: Text(
-                        _pokemonStore!.pokemonAtual!.name!,
-                        style: TextStyle(
-                            fontFamily: 'Google',
-                            fontSize: 38 -
-                                _progress *
-                                    (MediaQuery.of(context).size.height *
-                                        0.011),
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                      child: CustomText(
+                          text: _pokemonStore!.pokemonAtual!.name!,
+                          fontSize: 38 - _progress * (MediaQuery.of(context).size.height * 0.011),
+                        ),
                     ),
                     Positioned(
                       top: MediaQuery.of(context).size.height * 0.16,
@@ -139,15 +133,11 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                               left: 20, right: 20, top: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
+                            children: [
                               setTipos(_pokemonStore!.pokemonAtual!.type!),
-                              Text(
-                                '#${_pokemonStore!.pokemonAtual!.num}',
-                                style: const TextStyle(
-                                    fontFamily: 'Google',
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                              CustomText(
+                                text: '#${_pokemonStore!.pokemonAtual!.num}',
+                                fontSize: 26,
                               ),
                             ],
                           ),
@@ -211,7 +201,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                         _pokemonStore!.getPokemon(index: index);
                     return Stack(
                       alignment: Alignment.center,
-                      children: <Widget>[
+                      children: [
                         Image.asset(
                           ColorsUi.whitePokeball,
                           height: 270,
@@ -224,7 +214,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                                 return Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
+                                  children: [
                                     AnimatedPadding(
                                       duration: const Duration(milliseconds: 400),
                                       curve: Curves.easeIn,
@@ -242,8 +232,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                                             index == _pokemonStore!.posicaoAtual
                                                 ? pokeitem.name!
                                                 : 'none$index',
-                                        child: Image.network(
-                                          'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${pokeitem.num}.png',
+                                        child: Image.network('${ApiRoutes.getImage}${pokeitem.num}.png',
                                           height: 160,
                                           width: 160,
                                           color: index ==
@@ -274,7 +263,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
     for (var nome in types) {
       lista.add(
         Row(
-          children: <Widget>[
+          children: [
             Container(
               padding: const EdgeInsets.all(0),
               decoration: BoxDecoration(
@@ -282,13 +271,9 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                   color: const Color.fromARGB(80, 255, 255, 255)),
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: Text(
-                  nome.trim(),
-                  style: const TextStyle(
-                      fontFamily: 'Google',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                child: CustomText(
+                  text: nome.trim(),
+                  fontSize: 18,
                 ),
               ),
             ),

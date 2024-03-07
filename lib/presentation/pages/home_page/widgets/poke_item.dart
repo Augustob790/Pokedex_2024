@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../../constants/api_routes.dart';
 import '../../../../constants/consts_app.dart';
+import '../../../widgets/custom_text.dart';
 
 class PokeItem extends StatelessWidget {
+  const PokeItem(
+      {super.key, this.name, this.index, this.color, this.num, this.types});
+
   final String? name;
   final int? index;
   final Color? color;
@@ -13,7 +18,7 @@ class PokeItem extends StatelessWidget {
     for (var nome in types!) {
       lista.add(
         Column(
-          children: <Widget>[
+          children: [
             Container(
               padding: const EdgeInsets.all(0),
               decoration: BoxDecoration(
@@ -21,13 +26,9 @@ class PokeItem extends StatelessWidget {
                   color: const Color.fromARGB(80, 255, 255, 255)),
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: Text(
-                  nome.trim(),
-                  style: const TextStyle(
-                      fontFamily: 'Google',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                child: CustomText(
+                  text: nome.trim(),
+                  fontSize: 12,
                 ),
               ),
             ),
@@ -44,8 +45,6 @@ class PokeItem extends StatelessWidget {
     );
   }
 
-  const PokeItem(
-      {super.key, this.name, this.index, this.color, this.num, this.types});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -67,11 +66,11 @@ class PokeItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Stack(
-            children: <Widget>[
+            children:[
               Align(
                 alignment: Alignment.bottomRight,
                 child: Hero(
-                  tag: '${name!}roatation',
+                  tag: '${name}roatation',
                   child: Opacity(
                     opacity: 0.2,
                     child: Image.asset(
@@ -84,17 +83,13 @@ class PokeItem extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                    child: Text(
-                      name!,
-                      style: const TextStyle(
-                          fontFamily: 'Google',
+                    child: CustomText(
+                          text: name ?? "",
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+                        ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -105,9 +100,9 @@ class PokeItem extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: Hero(
-                  tag: name!,
+                  tag: name ?? "",
                   child: Image.network(
-                    'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$num.png',
+                    '${ApiRoutes.getImage}$num.png',
                     alignment: Alignment.bottomRight,
                     height: 80,
                     width: 80,

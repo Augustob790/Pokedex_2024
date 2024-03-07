@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../widgets/custom_text.dart';
+
 class AppBarHome extends StatelessWidget {
   const AppBarHome({super.key});
 
@@ -12,7 +14,7 @@ class AppBarHome extends StatelessWidget {
           SizedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
+              children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 13, right: 5),
                   child: IconButton(
@@ -25,15 +27,13 @@ class AppBarHome extends StatelessWidget {
           ),
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
+            children: [
               Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  'Pokedex',
-                  style: TextStyle(
-                      fontFamily: 'Google',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28),
+                child: CustomText(
+                  text: 'Pokedex',
+                  fontSize: 28,
+                  colors: Colors.black,
                 ),
               ),
             ],
