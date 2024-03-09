@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../constants/api_routes.dart';
-import '../../../../constants/consts_app.dart';
+import '../../../../constants/consts_colors.dart';
 import '../../../widgets/custom_text.dart';
 
 class PokeItem extends StatelessWidget {

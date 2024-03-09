@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../constants/api_routes.dart';
-import '../../constants/consts_app.dart';
+import '../../constants/consts_colors.dart';
 import '../../data/repositories/pokemon_repositories.dart';
 import '../../domain/models/pokemon_model.dart';
 import '../../domain/models/pokeon_list_model.dart';

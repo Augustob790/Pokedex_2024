@@ -27,7 +27,7 @@ abstract class _PokeApiV2StoreBase with Store {
       pokeApiV2 = response;
     } catch (e) {
       log(e.toString());
-      throw "Não foi possível carregar os dados!";
+      throw "$e";
     }
   }
 
@@ -38,7 +38,7 @@ abstract class _PokeApiV2StoreBase with Store {
       specie = response;
     } catch (e) {
       log(e.toString());
-      throw "Não foi possível carregar os dados!";
+      throw "$e";
     }
   }
 }

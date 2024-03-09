@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 import '../../../constants/api_routes.dart';
-import '../../../constants/consts_app.dart';
+import '../../../constants/consts_colors.dart';
 import '../../../domain/models/pokemon_model.dart';
 import '../../stores/pokeapi_store.dart';
 import '../../stores/pokeapiv2_store.dart';
@@ -39,10 +39,6 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
     _pokeApiV2Store = GetIt.instance<PokeApiV2Store>();
     _pokeApiV2Store!.getInfoPokemon(_pokemonStore!.pokemonAtual!.name);
     _pokeApiV2Store!.getInfoSpecie(_pokemonStore!.pokemonAtual!.id.toString());
-    // _animation = MultiTrackTween([
-    //   Track("rotation").add(Duration(seconds: 5), Tween(begin: 0.0, end: 6.0),
-    //       curve: Curves.linear)
-    // ]);
     _progress = 0;
     _multiple = 1;
     _opacity = 1;
@@ -219,14 +215,9 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                                       duration: const Duration(milliseconds: 400),
                                       curve: Curves.easeIn,
                                       padding: EdgeInsets.only(
-                                          top: index ==
-                                                  _pokemonStore!.posicaoAtual
-                                              ? 0
-                                              : 60,
-                                          bottom: index ==
-                                                  _pokemonStore!.posicaoAtual
-                                              ? 0
-                                              : 60),
+                                          top: index == _pokemonStore!.posicaoAtual ? 0: 60,
+                                          bottom: index == _pokemonStore!.posicaoAtual ? 0: 60,
+                                        ),
                                       child: Hero(
                                         tag:
                                             index == _pokemonStore!.posicaoAtual

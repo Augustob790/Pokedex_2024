@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get_it/get_it.dart';
-import '../../../constants/consts_app.dart';
+import '../../../constants/consts_colors.dart';
 import '../../../domain/models/pokemon_model.dart';
 import '../../stores/pokeapi_store.dart';
 import '../poke_detail/poke_detail_page.dart';
@@ -85,15 +85,11 @@ class _HomePageState extends State<HomePage> {
                                         num: pokemon.num,
                                       ),
                                       onTap: () {
-                                        _pokemonStore.setPokemonAtual(
-                                            index: index);
+                                        _pokemonStore.setPokemonAtual(index: index);
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                PokeDetailPage(
-                                              index: index,
-                                            ),
+                                            builder: (BuildContext context) => PokeDetailPage(index: index),
                                             fullscreenDialog: true,
                                           ),
                                         );

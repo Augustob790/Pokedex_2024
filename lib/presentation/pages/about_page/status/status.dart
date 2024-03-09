@@ -1,55 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-
-import '../../../../domain/models/pokemon_detail_model.dart';
 import '../../../stores/pokeapiv2_store.dart';
+import '../../../controller/about_page_controller.dart';
+import '../widgets/status_bar.dart';
 
-class AbaStatus extends StatelessWidget {
+class AbaStatus extends StatefulWidget {
+  const AbaStatus({super.key, required this.controller});
+
+  final AboutPageController controller;
+
+  @override
+  State<AbaStatus> createState() => _AbaStatusState();
+}
+
+class _AbaStatusState extends State<AbaStatus> {
   final PokeApiV2Store _pokeApiV2Store = GetIt.instance<PokeApiV2Store>();
-
-  AbaStatus({super.key});
-
-  List<int?> getStatusPokemon(PokemonDetailModel? pokeApiV2) {
-    List<int?> list = [1, 2, 3, 4, 5, 6, 7];
-    int sum = 0;
-    if (pokeApiV2?.stats != null) {
-      for (var f in pokeApiV2!.stats!) {
-        sum = sum + f.baseStat!;
-        switch (f.stat!.name) {
-          case 'speed':
-            list[0] = f.baseStat;
-            break;
-          case 'special-defense':
-            list[1] = f.baseStat;
-            break;
-          case 'special-attack':
-            list[2] = f.baseStat;
-            break;
-          case 'defense':
-            list[3] = f.baseStat;
-            break;
-          case 'attack':
-            list[4] = f.baseStat;
-            break;
-          case 'hp':
-            list[5] = f.baseStat;
-            break;
-        }
-      }
-    }
-    list[6] = sum;
-
-    return list;
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-        child: Observer(builder: (context) {
-          return SingleChildScrollView(
+        child:  SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: <Widget>[
@@ -108,8 +82,7 @@ class AbaStatus extends StatelessWidget {
                   width: 10,
                 ),
                 Observer(builder: (context) {
-                  List<int?> list =
-                      getStatusPokemon(_pokeApiV2Store.pokeApiV2);
+                  List<int?> list = widget.controller.getStatusPokemon(_pokeApiV2Store.pokeApiV2);
                   return Column(
                     children: <Widget>[
                       Text(
@@ -175,8 +148,7 @@ class AbaStatus extends StatelessWidget {
                   width: 10,
                 ),
                 Observer(builder: (context) {
-                  List<int?> list =
-                      getStatusPokemon(_pokeApiV2Store.pokeApiV2);
+                  List<int?> list = widget.controller.getStatusPokemon(_pokeApiV2Store.pokeApiV2);
                   return Column(
                     children: <Widget>[
                       StatusBar(
@@ -223,43 +195,9 @@ class AbaStatus extends StatelessWidget {
                 }),
               ],
             ),
-          );
-        }),
-      ),
+      ),)
     );
   }
 }
 
-class StatusBar extends StatelessWidget {
-  final double? widthFactor;
 
-  const StatusBar({super.key, this.widthFactor});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 19,
-      child: Center(
-        child: Container(
-          height: 4,
-          width: MediaQuery.of(context).size.width * .47,
-          alignment: Alignment.centerLeft,
-          decoration: const ShapeDecoration(
-            shape: StadiumBorder(),
-            color: Colors.grey,
-          ),
-          child: FractionallySizedBox(
-            widthFactor: widthFactor,
-            heightFactor: 1.0,
-            child: Container(
-              decoration: ShapeDecoration(
-                shape: const StadiumBorder(),
-                color: widthFactor! > 0.5 ? Colors.teal : Colors.red,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
