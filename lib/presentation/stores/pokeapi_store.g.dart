@@ -84,6 +84,36 @@ mixin _$PokeApiStore on _PokeApiStoreBase, Store {
     });
   }
 
+  final _$errorMessageAtom = Atom(name: '_PokeApiStoreBase.errorMessage');
+
+  @override
+  dynamic get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(dynamic value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
+  final _$isLoadingAtom = Atom(name: '_PokeApiStoreBase.isLoading');
+
+  @override
+  dynamic get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(dynamic value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   final _$_PokeApiStoreBaseActionController =
       ActionController(name: '_PokeApiStoreBase');
 
@@ -123,6 +153,8 @@ mixin _$PokeApiStore on _PokeApiStoreBase, Store {
   @override
   String toString() {
     return '''
+isLoading: ${isLoading}
+errorMessage: ${errorMessage}
 corPokemon: ${corPokemon},
 posicaoAtual: ${posicaoAtual},
 pokeAPI: ${pokeAPI},

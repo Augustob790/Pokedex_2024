@@ -26,6 +26,12 @@ abstract class _PokeApiStoreBase with Store {
   dynamic corPokemon;
 
   @observable
+  dynamic errorMessage;
+
+  @observable
+  dynamic isLoading;
+
+  @observable
   int? posicaoAtual;
 
   @computed
@@ -48,8 +54,8 @@ abstract class _PokeApiStoreBase with Store {
 
   @action
   void setPokemonAtual({required int index}) {
-    _pokemonAtual = _pokeAPI!.pokemon![index];
-    corPokemon = ColorsUi.getColorType(type: _pokemonAtual!.type![0]);
+    _pokemonAtual = _pokeAPI?.pokemon?[index];
+    corPokemon = ColorsUi.getColorType(type: _pokemonAtual?.type?[0]);
     posicaoAtual = index;
   }
 
@@ -59,11 +65,15 @@ abstract class _PokeApiStoreBase with Store {
   }
 
   Future<PokeListModel?> getAllPokemons() async {
+    isLoading = "isLoading";
     try {
       final response = await pokemonRepository.getAllPokemons();
+      isLoading = "sucess";
       return response;
     } catch (e) {
       log(e.toString());
+      isLoading = "error";
+      errorMessage = e.toString();
       throw "Não foi possível carregar os dados!";
     }
   }
