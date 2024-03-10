@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import '../../../stores/pokeapiv2_store.dart';
 import '../../../controller/about_page_controller.dart';
-import '../widgets/status_bar.dart';
+import '../../../widgets/status_bar.dart';
 
 class AbaStatus extends StatefulWidget {
   const AbaStatus({super.key, required this.controller});

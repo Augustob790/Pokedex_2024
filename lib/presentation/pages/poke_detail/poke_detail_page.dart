@@ -11,6 +11,7 @@ import '../../../domain/models/pokemon_model.dart';
 import '../../stores/pokeapi_store.dart';
 import '../../stores/pokeapiv2_store.dart';
 import '../../widgets/custom_text.dart';
+import '../../widgets/set_types.dart';
 import '../about_page/about_page.dart';
 
 class PokeDetailPage extends StatefulWidget {
@@ -25,7 +26,6 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
   PageController? _pageController;
   PokeApiStore? _pokemonStore;
   PokeApiV2Store? _pokeApiV2Store;
-  // MultiTrackTween _animation;
   late double _progress;
   double? _multiple;
   double? _opacity;
@@ -37,7 +37,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
     _pageController = PageController(initialPage: widget.index!, viewportFraction: 0.5);
     _pokemonStore = GetIt.instance<PokeApiStore>();
     _pokeApiV2Store = GetIt.instance<PokeApiV2Store>();
-    _pokeApiV2Store!.getInfoPokemon(_pokemonStore!.pokemonAtual!.name);
+    _pokeApiV2Store!.getInfoPokemon(_pokemonStore?.pokemonAtual!.name);
     _pokeApiV2Store!.getInfoSpecie(_pokemonStore!.pokemonAtual!.id.toString());
     _progress = 0;
     _multiple = 1;
@@ -67,8 +67,8 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      _pokemonStore!.corPokemon.withOpacity(0.7),
-                      _pokemonStore!.corPokemon,
+                      _pokemonStore?.corPokemon.withOpacity(0.7),
+                      _pokemonStore?.corPokemon,
                     ],
                   ),
                 ),
@@ -109,14 +109,10 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                       ],
                     ),
                     Positioned(
-                      top: MediaQuery.of(context).size.height * 0.12 -
-                          _progress *
-                              (MediaQuery.of(context).size.height * 0.060),
-                      left: 20 +
-                          _progress *
-                              (MediaQuery.of(context).size.height * 0.060),
+                      top: MediaQuery.of(context).size.height * 0.12 - _progress * (MediaQuery.of(context).size.height * 0.060),
+                      left: 20 + _progress * (MediaQuery.of(context).size.height * 0.060),
                       child: CustomText(
-                          text: _pokemonStore!.pokemonAtual!.name!,
+                          text: _pokemonStore?.pokemonAtual?.name ?? "",
                           fontSize: 38 - _progress * (MediaQuery.of(context).size.height * 0.011),
                         ),
                     ),
@@ -130,7 +126,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              setTipos(_pokemonStore!.pokemonAtual!.type!),
+                              SetTypesWidget(types:_pokemonStore!.pokemonAtual!.type!),
                               CustomText(
                                 text: '#${_pokemonStore!.pokemonAtual!.num}',
                                 fontSize: 26,
@@ -165,8 +161,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
             ),
             builder: (context, state) {
               return SizedBox(
-                height: MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).size.height * 0.12,
+                height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height * 0.12,
                 child: const AboutPage(),
               );
             },
@@ -177,24 +172,20 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
               padding: EdgeInsets.only(
                   top: _opacityTitleAppBar == 1
                       ? 1000
-                      : (MediaQuery.of(context).size.height * 0.25) -
-                          _progress * 50),
+                      : (MediaQuery.of(context).size.height * 0.25) - _progress * 50),
               child: SizedBox(
                 height: 200,
                 child: PageView.builder(
                   physics: const BouncingScrollPhysics(),
                   controller: _pageController,
                   onPageChanged: (index) {
-                    _pokemonStore!.setPokemonAtual(index: index);
-                    _pokeApiV2Store!
-                        .getInfoPokemon(_pokemonStore!.pokemonAtual!.name);
-                    _pokeApiV2Store!.getInfoSpecie(
-                        _pokemonStore!.pokemonAtual!.id.toString());
+                    _pokemonStore?.setPokemonAtual(index: index);
+                    _pokeApiV2Store?.getInfoPokemon(_pokemonStore!.pokemonAtual!.name);
+                    _pokeApiV2Store?.getInfoSpecie(_pokemonStore!.pokemonAtual!.id.toString());
                   },
                   itemCount: _pokemonStore!.pokeAPI!.pokemon!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    PokemonModel pokeitem =
-                        _pokemonStore!.getPokemon(index: index);
+                    PokemonModel pokeitem = _pokemonStore!.getPokemon(index: index);
                     return Stack(
                       alignment: Alignment.center,
                       children: [
@@ -215,21 +206,15 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                                       duration: const Duration(milliseconds: 400),
                                       curve: Curves.easeIn,
                                       padding: EdgeInsets.only(
-                                          top: index == _pokemonStore!.posicaoAtual ? 0: 60,
-                                          bottom: index == _pokemonStore!.posicaoAtual ? 0: 60,
+                                          top: index == _pokemonStore?.posicaoAtual ? 0: 60,
+                                          bottom: index == _pokemonStore?.posicaoAtual ? 0: 60,
                                         ),
                                       child: Hero(
-                                        tag:
-                                            index == _pokemonStore!.posicaoAtual
-                                                ? pokeitem.name!
-                                                : 'none$index',
+                                        tag: index == _pokemonStore?.posicaoAtual ? pokeitem.name ?? "" : 'none$index',
                                         child: Image.network('${ApiRoutes.getImage}${pokeitem.num}.png',
                                           height: 160,
                                           width: 160,
-                                          color: index ==
-                                                  _pokemonStore!.posicaoAtual
-                                              ? null
-                                              : Colors.black.withOpacity(0.5),
+                                          color: index == _pokemonStore?.posicaoAtual ? null : Colors.black.withOpacity(0.5),
                                         ),
                                       ),
                                     ),
@@ -246,38 +231,6 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget setTipos(List<String> types) {
-    List<Widget> lista = [];
-    for (var nome in types) {
-      lista.add(
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: const Color.fromARGB(80, 255, 255, 255)),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: CustomText(
-                  text: nome.trim(),
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 8,
-            )
-          ],
-        ),
-      );
-    }
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: lista,
     );
   }
 }
