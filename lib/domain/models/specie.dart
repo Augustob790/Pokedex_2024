@@ -53,6 +53,8 @@ class Specie {
     captureRate = json['capture_rate'];
     color =
         json['color'] != null ? ObjPokemon.fromJson(json['color']) : null;
+    habitat =
+        json['habitat'] != null ? ObjPokemon.fromJson(json['habitat']) : null;
     evolutionChain = json['evolution_chain'] != null
         ? EvolutionChain.fromJson(json['evolution_chain'])
         : null;

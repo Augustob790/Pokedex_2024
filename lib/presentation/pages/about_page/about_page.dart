@@ -60,7 +60,8 @@ class _AboutPageState extends State<AboutPage>with SingleTickerProviderStateMixi
               },
               controller: _tabController,
               labelStyle: const TextStyle(
-              fontWeight: FontWeight.w700),
+                fontWeight: FontWeight.w700,
+              ),
               indicatorSize: TabBarIndicatorSize.tab, 
               labelColor: _pokemonStore!.corPokemon, 
               isScrollable: true,
@@ -70,7 +71,7 @@ class _AboutPageState extends State<AboutPage>with SingleTickerProviderStateMixi
                   text: "Sobre",
                 ),
                 Tab(
-                  text: "Evolução",
+                  text: "Cadeia Evolutiva",
                 ),
                 Tab(
                   text: "Status",

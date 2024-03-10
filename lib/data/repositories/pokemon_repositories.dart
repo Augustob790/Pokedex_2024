@@ -20,14 +20,14 @@ class PokemonRepository {
       if (error.type == DioExceptionType.connectionTimeout || error.type == DioExceptionType.receiveTimeout) {
         throw "Por favor, verifique sua conexão e tente novamente.";
       } else if (error.type == DioExceptionType.connectionError) {
-        throw "Não foi possivel conectar-se ao servidor, por favor verifique sua conexão!: $error";
+        throw "Não foi possivel conectar-se ao servidor, por favor verifique sua conexão!";
       } else {
         log(error.toString());
-        throw "Não foi possível carregar os dados!";
+        throw "Não foi possível carregar os dados!: $error";
       }
     } catch (e) {
       log(e.toString());
-      throw "Não foi possível carregar os dados!";
+      throw "Não foi possível carregar os dados!: $e";
     }
   }
 
@@ -40,14 +40,14 @@ class PokemonRepository {
       if (error.type == DioExceptionType.connectionTimeout || error.type == DioExceptionType.receiveTimeout) {
         throw "Por favor, verifique sua conexão e tente novamente.";
       } else if (error.type == DioExceptionType.connectionError) {
-        throw "Não foi possivel conectar-se ao servidor, por favor verifique sua conexão!: $error";
+        throw "Não foi possivel conectar-se ao servidor, por favor verifique sua conexão!";
       } else {
         log(error.toString());
-        throw "Não foi possível carregar os dados!";
+        throw "Não foi possível carregar os dados!: $error";
       }
     } catch (e) {
       log(e.toString());
-      throw "Não foi possível carregar os dados!";
+      throw "Não foi possível carregar os dados!: $e";
     }
   }
 
@@ -60,14 +60,14 @@ class PokemonRepository {
       if (error.type == DioExceptionType.connectionTimeout || error.type == DioExceptionType.receiveTimeout) {
         throw "Por favor, verifique sua conexão e tente novamente.";
       } else if (error.type == DioExceptionType.connectionError) {
-        throw "Não foi possivel conectar-se ao servidor, por favor verifique sua conexão!: $error";
+        throw "Não foi possivel conectar-se ao servidor, por favor verifique sua conexão!";
       } else {
         log(error.toString());
-        throw "Não foi possível carregar os dados!";
+        throw "Não foi possível carregar os dados!: $error";
       }
     } catch (e) {
       log(e.toString());
-      throw "Não foi possível carregar os dados!";
+      throw "Não foi possível carregar os dados!: $e";
     }
   }
 }
