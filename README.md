@@ -4,5 +4,5 @@ Pokedex desenvolvida usando Flutter, Dart, Mobx. Getit com a Api PokeApi https:/
 
 ## Features
 
-Listagem de Pokemons
-Tela de Detalhes do Pokemon (Detalhes, Status, Evoluções)
+--Listagem de Pokemons
+--Tela de Detalhes do Pokemon (Detalhes, Status, Evoluções)
