@@ -31,11 +31,10 @@ class AbaSobre extends StatelessWidget {
                       child: SingleChildScrollView(
                           child: specie != null
                               ? Text(
-                                  specie.flavorTextEntries!
-                                      .where((item) => item.language!.name == 'en')
-                                      .first
-                                      .flavorText!,
-                                  style: const TextStyle(fontSize: 14))
+                                  specie.flavorTextEntries!.where((item) => item.language!.name == 'en').first.flavorText!.replaceAll('\n', ''),
+                                  textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 14),
+                                )
                               : const CircularProgressAbout()));
                 }),
                 const SizedBox(
