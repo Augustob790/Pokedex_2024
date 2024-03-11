@@ -9,14 +9,14 @@ Pokedex desenvolvida usando Flutter, Dart, Mobx. Getit com a Api PokeApi https:/
 
   ```bash
 # Clone this repository
-$ git clone [https://github.com/Augustob790/Pokedex_2024]
+$ git clone https://github.com/Augustob790/Pokedex_2024
 
-# Go to repository folder
+ - Go to repository folder
 $ cd pokedex
 
-# Install dependencies
+- Install dependencies
 $ flutter pub get
 
-# Run the APP
+- Run the APP
 $ flutter run
 ```
